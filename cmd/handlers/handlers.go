@@ -36,3 +36,9 @@ func ReTasks(c echo.Context) error {
 	repositories.ReTasks(Update, id)
 	return c.JSON(200, Update)
 }
+
+func DeleteTask(c echo.Context) error {
+	id := c.Param("id")
+	repositories.DeleteTask(id)
+	return c.JSON(200, nil)
+}

@@ -10,9 +10,13 @@ import (
 func main() {
 	e := echo.New()
 	storage.InitDB()
-	e.POST("/tasks", handlers.TasksNew)
-	e.GET("tasks/:id", handlers.TaskRight)
-	e.GET("/tasks", handlers.Tasks)
-	e.PUT("tasks/:id", handlers.ReTasks)
+	api := e.Group("/tasks")
+	{
+		api.POST("/", handlers.TasksNew)
+		api.GET("/:id", handlers.TaskRight)
+		api.GET("/", handlers.Tasks)
+		api.PUT("/:id", handlers.ReTasks)
+		api.DELETE("/:id", handlers.DeleteTask)
+	}
 	e.Logger.Fatal(e.Start(":8000"))
 }

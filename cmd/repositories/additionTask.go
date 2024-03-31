@@ -4,6 +4,8 @@ import (
 	"log"
 	"stepan/cmd/models"
 	"stepan/cmd/storage"
+
+	"github.com/sirupsen/logrus"
 )
 
 func TasksNew(task models.Tasks) {
@@ -41,5 +43,13 @@ func ReTasks(Uptask models.Tasks, id string) {
 	_, err := db.Exec(`UPDATE tasks SET title = $1, description = $2 WHERE id = $3`, Uptask.Title, Uptask.Description, id)
 	if err != nil {
 		log.Fatal("Ошибка в переделке")
+	}
+}
+
+func DeleteTask(id string) {
+	db := storage.GetDB()
+	_, err := db.Exec("DELETE FROM tasks WHERE id = $1", id)
+	if err != nil {
+		logrus.Errorf("databse error: %s", err)
 	}
 }
