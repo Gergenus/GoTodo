@@ -11,6 +11,7 @@ func main() {
 	e := echo.New()
 	storage.InitDB()
 	api := e.Group("/tasks")
+
 	{
 		api.POST("/", handlers.TasksNew)
 		api.GET("/:id", handlers.TaskRight)

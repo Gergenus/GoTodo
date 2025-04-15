@@ -9,6 +9,7 @@ import (
 )
 
 func TasksNew(task models.Tasks) {
+
 	db := storage.GetDB()
 	db.QueryRow("INSERT INTO tasks (title, description) VALUES ($1, $2)", task.Title, task.Description)
 }
